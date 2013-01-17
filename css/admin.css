@@ -1,0 +1,8 @@
+.rule {border:none;border-top:1px solid #ddd;border-bottom:1px solid #fff;font-size:1px;line-height:0;overflow:visible;}
+.bold {font-weight:bold;}
+.underline {text-decoration:underline;}
+.italic {font-style:italic;}
+.center {text-align:center;}
+
+/*-- wp standard settings table --*/
+table.form-table {margin-top:0;clear:left;width:auto;}
