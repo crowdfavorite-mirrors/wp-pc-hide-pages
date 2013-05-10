@@ -4,7 +4,7 @@ Contributors: petercoughlin
 Donate link: http://petercoughlin.com/donate/
 Tags: hide pages, remove pages, hide, pages, menus, search, search engine, thankyou page, download page
 Requires at least: 3.0
-Tested up to: 3.4.2
+Tested up to: 3.5.1
 Stable tag: trunk
 
 Enables you to hide your pages and stop them being indexed by search engines.
@@ -27,14 +27,19 @@ This plugin is ideal for download pages, thank you pages or any other page you w
 
 == Changelog ==
 
-= 1.0 =
-* Initial version.
+= 1.3 =
+* Updated code to list pages on settings page.
+* Added View and Edit links to settings page.
+* Updated compatibility.
 
-= 1.1 =
-* Added code to remove hidden pages from WordPress custom menus.
+= 1.3 =
+* Fixed bug in page ids for custom menus.
 
 = 1.2 =
 * Linked page title to page URL on plugin settings page.
 
-= 1.3 =
-* Fixed bug in page ids for custom menus.
+= 1.1 =
+* Added code to remove hidden pages from WordPress custom menus.
+
+= 1.0 =
+* Initial version.

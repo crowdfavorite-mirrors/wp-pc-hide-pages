@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: PC Hide Pages
-Plugin URI: http://petercoughlin.com/wordpress-plugins/
+Plugin URI: http://petercoughlin.com/
 Description: Allows you to hide pages from WordPress menus, blog searches and search engines.
-Version: 1.3
+Version: 1.4
 Author: Peter Coughlin
 Author URI: http://petercoughlin.com/
 License: GPLv2 or later
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 class pc_hide_pages {
 	var $name = 'PC Hide Pages';
 	var $shortname = 'Hide Pages';
-	var $version = '1.3';
+	var $version = '1.4';
 	var $slug;
 	var $url;
 	var $dir;

@@ -21,9 +21,7 @@ class pc_hide_pages_admin {
 	}
 	function settings_page() {
 		global $pc_hide_pages;
-		$pages = get_pages( 'hierarchical=1' );
-		$options = $pc_hide_pages->get_options();
-		
+		$options = $pc_hide_pages->get_options();		
 		if ( isset( $_POST['save-changes'] ) ) {
 			if ( function_exists( 'current_user_can' ) && !current_user_can( 'manage_options' ) )
 				die( 'Sorry, not allowed...' );
@@ -44,21 +42,13 @@ class pc_hide_pages_admin {
 		<form method="post">';
 		if ( function_exists( 'wp_nonce_field' ) )
 			wp_nonce_field( 'pc_hide_pages_settings' );
-		echo '<p>This plugin enables you to hide pages on your blog. It will prevent them from appearing in any of the standard menus, lists or searches. It will also add code to your page which tells search engines not to index the page or keep a cached copy. This plugin is ideal for thank you pages, download pages ..etc.</p>
-		<hr class="rule" />
+		echo '<p>This plugin enables you to hide pages on your blog.</p><p>It will prevent them from appearing in any of the standard menus, lists or searches. It will also add code to your page which tells search engines not to index the page or keep a cached copy.</p><p>This plugin is ideal for thank you pages, download pages ..etc.</p>
 		<h3>Your Pages</h3>
 		<p>Tick the pages you want to hide and click the Save Changes button.</p>
 		<table class="form-table">
 		<tr>
 			<td colspan="2">';
-			foreach ( $pages as $page ) {
-				if ( 0 != $page->post_parent )
-					echo '&nbsp;&mdash;&nbsp;';
-				echo '<input type="checkbox" name="hidden_pages[]" value="' . $page->ID . '"';
-				if ( !empty( $options['hidden_pages'] ) && in_array( $page->ID, $options['hidden_pages'] ) )
-					echo ' checked="checked"';
-				echo ' /> <a href="' . get_page_link( $page->ID ) . '" target="_blank">' . $page->post_title . '</a><br />';
-			}
+			wp_list_pages( array( 'title_li' => '', 'walker' => new pdc_walker() ) );
 			echo '</td>
 		</tr>
 		</table>
@@ -68,3 +58,35 @@ class pc_hide_pages_admin {
 	}
 }
 $pc_hide_pages_admin = new pc_hide_pages_admin;
+
+class pdc_walker extends Walker_Page {
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
+		$output .= '';
+	}
+	// start element..
+	function start_el( &$output, $page, $depth, $args, $current_page = 0 ) {
+		global $pc_hide_pages;
+		$options = $pc_hide_pages->get_options();
+		if ( $depth )
+			$indent = str_repeat( ' &mdash; ', $depth );
+		else
+			$indent = '';
+
+		$output .= '<div>';
+		$output .= '<span style="color:#ccc;">' . $indent . '</span>';
+		$output .= '<input type="checkbox" name="hidden_pages[]" value="' . $page->ID . '"';
+		if ( !empty( $options['hidden_pages'] ) && in_array( $page->ID, $options['hidden_pages'] ) )
+			$output .= ' checked="checked"';
+		$output .= ' /> &nbsp;  <span style="font-weight:bold;">';
+		$output .= apply_filters( 'the_title', $page->post_title, $page->ID ) . '</span> &middot <a href="' . get_permalink( $page->ID ) . '" target="_blank">View</a> | <a href="' . get_edit_post_link( $page->ID ) . '" target="_blank">Edit</a>';
+
+	}
+	// end element..
+	function end_el( &$output, $page, $depth = 0, $args = array() ) {
+		$output .= '</div>';
+	}
+	// if element was a child, end level..
+	function end_lvl( &$output, $depth = 0, $args = array() ) {
+		$output .= '';
+	}
+}
